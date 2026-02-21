@@ -1,4 +1,4 @@
-# 2026-02-21 - Fabric + Bedrock (Geyser/Floodgate)
+# 2026-02-21 - Fabric + Bedrock (Geyser/Floodgate) + Performance
 
 services:
   mc:
@@ -7,7 +7,7 @@ services:
     stdin_open: true
     ports:
       - "25565:25565"          # Java
-      - "19132:19132/udp"      # Bedrock (Geyser)  <-- IMPORTANTE
+      - "19132:19132/udp"      # Bedrock (Geyser)
     environment:
       EULA: "TRUE"
       TYPE: "FABRIC"
@@ -22,15 +22,28 @@ services:
         JulianDr14
       PLAYER_IDLE_TIMEOUT: "15"
 
-      # --- clave para tu error ---
-      # Geyser en Modrinth te aparece como beta, si dejas "release" falla
-      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: "beta"
+      # Por defecto instala releases (más estable)
+      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: "release"
 
-      # Mods necesarios
+      # Lista de mods (beta solo donde toca)
       MODRINTH_PROJECTS: |-
-        fabric-api
+        # Crossplay (beta para 1.21.11)
         geyser:beta
         floodgate:beta
+
+        # Rendimiento (release estables)
+        lithium
+        ferrite-core
+        modernfix-mvus
+        krypton
+        scalablelux
+        noisiumforked
+
+        # Chunks (suele ir beta)
+        c2me-fabric:beta
+
+        # Diagnóstico
+        spark
 
     volumes:
       - "./data:/data"
